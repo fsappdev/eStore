@@ -51,7 +51,10 @@ export default class Details extends Component {
                               </Link>
                               <ButtonContainer cart
                                  disabled={inCart ? true : false}
-                                 onClick={() => { value.addToCart(id) }}>
+                                 onClick={() => {
+                                    value.addToCart(id);
+                                    value.openModal(id);
+                                 }}>
                                  {inCart ? "en el carrito" : "añadir al carrito"}
                               </ButtonContainer>
                            </div>

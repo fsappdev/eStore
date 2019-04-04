@@ -9,7 +9,12 @@ class ProductProvider extends Component {
   state = {
     products: [],
     detailProduct,
-    cart: []
+    cart: [],
+    modalOpen: false,
+    modalProduct: detailProduct,
+    cartSubTotal: 0,
+    cartTax: 0,
+    cartTotal: 0
   };
 
   componentDidMount() {
@@ -52,9 +57,38 @@ class ProductProvider extends Component {
     this.setState(() => {
       return { products: tempProducts, cart: [...this.state.cart, product] };
     }, () => {
-      console.log(this.state);
+      //console.log(this.state);
     });
+  };
 
+  clearCart = () => {
+    return console.log('nada');
+  };
+
+  openModal = id => {
+    const product = this.getItem(id);
+    this.setState(() => {
+      return { modalProduct: product, modalOpen: true };
+    });
+  };
+
+  closeModal = () => {
+    this.setState(() => {
+      return { modalOpen: false };
+    });
+  };
+
+  increment = (id) => {
+    console.log('este es un metodo incremental');
+  };
+  decrement = (id) => {
+    console.log('este es un metodo decremental');
+  };
+  removeItem = (id) => {
+    console.log('item removido');
+  };
+  clearCart = () => {
+    console.log('el carrito se ha eliminado');
   };
 
   tester = () => {
@@ -67,15 +101,23 @@ class ProductProvider extends Component {
     }, () => {
       console.log('state products :', this.state.products);
       console.log('data products :', storeProducts[0].inCart);
-    })
+    });
   };
+
   render() {
     return (
       <ProductContext.Provider value={{
         ...this.state,
         handleDetail: this.handleDetail,
-        addToCart: this.addToCart
-      }}>{/* <button onClick={this.tester}>testear</button> */}
+        addToCart: this.addToCart,
+        openModal: this.openModal,
+        closeModal: this.closeModal,
+        increment: this.increment,
+        decrement: this.decrement,
+        removeItem: this.removeItem,
+        clearCart: this.clearCart
+      }}>
+        {/* <button onClick={this.tester}>testear</button> */}
         {this.props.children}
       </ProductContext.Provider>
     );
