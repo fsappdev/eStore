@@ -3,7 +3,7 @@ import React from 'react';
 export default function CartItem(item, value) {
    const { id, title, img, price, total, count } = item.item;
    const { increment, decrement, removeItem } = item.value;
-   console.log(item);
+   //console.log(item);
    //console.log(value);
    return (
       <div className="row my-2 text-capitalize text-center">

@@ -58,6 +58,7 @@ class ProductProvider extends Component {
       return { products: tempProducts, cart: [...this.state.cart, product] };
     }, () => {
       //console.log(this.state);
+      this.addTotals();
     });
   };
 
@@ -79,18 +80,79 @@ class ProductProvider extends Component {
   };
 
   increment = (id) => {
-    console.log('este es un metodo incremental');
+    //console.log('este es un metodo incremental');
+    let tempCart = [...this.state.cart];
+    const selected = tempCart.find(item => item.id === id);
+    const index = tempCart.indexOf(selected);
+    const product = tempCart[index];
+    product.count = product.count + 1;
+    product.total = product.count * product.price;
+    this.setState(() => { return { cart: [...tempCart] } },
+      () => { this.addTotals() }
+    );
   };
   decrement = (id) => {
-    console.log('este es un metodo decremental');
+    //console.log('este es un metodo decremental');
+    //esto se debe hacer, lo sé lo sé.... :-(
+    let tempCart = [...this.state.cart];
+    const selected = tempCart.find(item => item.id === id);
+    const index = tempCart.indexOf(selected);
+    const product = tempCart[index];
+    product.count = product.count - 1;
+    if (product.count === 0) {
+      this.removeItem(id);
+    } else {
+      product.total = product.count * product.price;
+      this.setState(() => { return { cart: [...tempCart] } },
+        () => { this.addTotals() }
+      );
+
+    }
   };
   removeItem = (id) => {
     console.log('item removido');
-  };
-  clearCart = () => {
-    console.log('el carrito se ha eliminado');
+    let tempProducts = [...this.state.products];
+    let tempCart = [...this.state.cart];
+    tempCart = tempCart.filter(item => item.id !== id);
+    const index = tempProducts.indexOf(this.getItem(id));
+    const removedProduct = tempProducts[index];
+    removedProduct.inCart = false;
+    removedProduct.count = 0;
+    removedProduct.total = 0;
+
+    this.setState(() => {
+      return {
+        cart: [...tempCart],
+        products: [...tempProducts]
+      }
+    }, () => {
+      this.addTotals();
+    });
   };
 
+  clearCart = () => {
+    //console.log('el carrito se ha eliminado');
+    this.setState(() => { return { cart: [] }; },
+      () => {
+        this.setProducts();
+        this.addTotals();
+      });
+  };
+
+  addTotals = () => {
+    let subTotal = 0;
+    this.state.cart.map(item => (subTotal += item.total));
+    const tempTax = subTotal * 0.21;
+    const tax = parseFloat(tempTax.toFixed(2));
+    const total = subTotal + tax;
+    this.setState(() => {
+      return {
+        cartSubTotal: subTotal,
+        cartTax: tax,
+        cartTotal: total
+      }
+    })
+  }
   tester = () => {
     console.log('state products :', this.state.products);
     console.log('data products :', storeProducts[0].inCart);

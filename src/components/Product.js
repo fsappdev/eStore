@@ -21,7 +21,7 @@ export default class Product extends Component {
                            value.openModal(id);
                         }}
                         >
-                           {inCart ? (<p className="text-capitalize mb-0" disabled>Agregado al carrito</p>) : (<p><small><i>lo quiero! </i></small><i className="fas fa-cart-plus" /></p>)}
+                           {inCart ? (<p className="text-capitalize mb-0" disabled> &#x1F605; Agregado al carrito</p>) : (<p><small><i>lo quiero! </i></small><i className="fas fa-cart-plus" /></p>)}
                         </button>
                      </div>
                   )}
