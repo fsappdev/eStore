@@ -12,9 +12,7 @@ export default class ProductList extends Component {
             <div className="py-5">
                <div className="container">
                   <Title name="nuestros" title="productos" />
-
                   <div className="row">
-
                      <ProductConsumer>
                         {value => {
                            return value.products.map(producto => {
@@ -22,7 +20,6 @@ export default class ProductList extends Component {
                            });
                         }}
                      </ProductConsumer>
-
                   </div>
                </div>
             </div>

@@ -16,11 +16,17 @@ export default class Navbar extends Component {
             </Link>
             <ul className="navbar-nav align-items-center">
                <li className="nav-item ml-5">
-                  <Link to="/" className="nav-link">
-                     Productos
+                  <Link to="/" /* className="nav-link" */>
+                     <ButtonContainer>
+                        <span className="mr-2">
+                           <i class="fas fa-shopping-bag" />
+                           Productos
+                         </span>
+                     </ButtonContainer>
                   </Link>
                </li>
             </ul>
+
             <Link to='/cart' className="ml-auto">
                <ButtonContainer>
                   <span className="mr-2">
@@ -29,16 +35,21 @@ export default class Navbar extends Component {
                   </span>
                </ButtonContainer>
             </Link>
+
          </NavWrapper>
       );
    }
 }
 
 const NavWrapper = styled.nav`
-background: var(--mainBlue); 
-.nav-link{
+/* background: var(--mainBlue); */
+background: #41295a;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2F0743, #41295a);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2F0743, #41295a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+/* .nav-link{
    color: var(--mainWhite) !important;
    font-size:1.3rem;
-   text-transform: capitalize;
-}
+  /*  text-transform: capitalize; */
+} */
 `;
